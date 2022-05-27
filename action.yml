@@ -1,0 +1,22 @@
+name: 'Wait on Federalist build'
+description: 'Wait on a Federalist build to succeed and output the build preview URL'
+inputs:
+  debug:
+    description: 'true to emit debugging output, false to omit debugging output (default: true)'
+    required: true
+    default: true
+  commit-sha:
+    description: 'Commit SHA to wait on Federalist build'
+    required: true
+outputs:
+  preview-url:
+    description: "Preview URL for Federalist build"
+    value: ${{ steps.wait-for-federalist-build.outputs.preview-url }}
+runs:
+  using: "composite"
+  steps:
+    - id: wait-for-federalist-build
+      run: |
+        FEDERALIST_PREVIEW_URL=$(DEBUG=${{ inputs.debug }} COMMIT_SHA=${{ inputs.commit-sha }} wait-for-federalist-build.sh)
+        echo "::set-output name=preview-url::$(echo $FEDERALIST_PREVIEW_URL)"
+      shell: bash
