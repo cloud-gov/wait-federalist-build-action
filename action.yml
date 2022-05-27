@@ -17,7 +17,7 @@ runs:
   steps:
     - id: wait-for-federalist-build
       run: |
-        FEDERALIST_PREVIEW_URL=$(wait-for-federalist-build.sh)
+        FEDERALIST_PREVIEW_URL=$(./wait-for-federalist-build.sh)
         echo "::set-output name=preview-url::$(echo $FEDERALIST_PREVIEW_URL)"
       shell: bash
       env:
