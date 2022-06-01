@@ -32,7 +32,7 @@ Add a step using this action to your workflow:
 **Note:** In the context of a pull request, `${{ github.event.pull_request.head.sha }}` is what you want to get the
 latest commit on your branch, not `${{ github.sha }}`.
 
-Then, if the step succeeds, subsequent steps will have access to the build preview URL in `${{ steps.wait-federalist-build.outputs.preview-url }`.
+Then, if the step succeeds, subsequent steps will have access to the build preview URL in `${{ steps.wait-federalist-build.outputs.preview-url }}`.
 
 ## Testing locally
 
