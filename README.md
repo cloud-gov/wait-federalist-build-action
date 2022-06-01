@@ -21,12 +21,12 @@ a successful Federalist build for a total of 10 minutes.
 Add a step using this action to your workflow:
 
 ```yaml
-    - name: Wait on federalist build
+      - name: Wait on federalist build
         id: wait-federalist-build
         uses: markdboyd/wait-federalist-build-action@main
         with:
-            debug: true
-            commit-sha: ${{ github.event.pull_request.head.sha }}
+          debug: true
+          commit-sha: ${{ github.event.pull_request.head.sha }}
 ```
 
 **Note:** In the context of a pull request, `${{ github.event.pull_request.head.sha }}` is what you want to get the
