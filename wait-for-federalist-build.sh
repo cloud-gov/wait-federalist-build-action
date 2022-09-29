@@ -21,18 +21,18 @@ debug() {
 	fi
 }
 
-# Query for Federalist build success and return the preview URL if successful
+# Query for cloud.gov Pages build success and return the preview URL if successful
 is_federalist_build_successful() {
     GH_RESPONSE=$(curl --silent "$GITHUB_API_URL/repos/${GITHUB_REPOSITORY}/commits/$COMMIT_SHA/status")
 
     BUILD_INFO=$(echo "$GH_RESPONSE" \
-        | jq --exit-status -c '.statuses[] | select(.context | contains("federalist/build"))')
+        | jq --exit-status -c '.statuses[] | select(.context | contains("pages/build"))')
 
     BUILD_STATE=$(echo "$BUILD_INFO" | jq -r '.state')
-    debug "Current Federalist build state: $BUILD_STATE"
+    debug "Current cloud.gov Pages build state: $BUILD_STATE"
 
     if [ "$BUILD_STATE" = "success" ]; then
-        debug "Found successful Federalist build"
+        debug "Found successful cloud.gov Pages build"
         echo "$BUILD_INFO" | jq -r '.target_url'
         return 0
     fi
@@ -51,7 +51,7 @@ while ! is_federalist_build_successful; do
       exit 1
     fi
 
-    debug "Did not find successful Federalist build, retrying"
+    debug "Did not find successful cloud.gov Pages build, retrying"
     attempt_counter=$((attempt_counter+1))
     sleep 30
 done
